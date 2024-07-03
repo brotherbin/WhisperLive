@@ -12,11 +12,15 @@
     <div class="button" id="stopCapture" disabled>Stop Capture</div>
   </div>
   <div class="checkbox-container">
+    <label>Backend Server</label>
+    <input type="text" id="backendServer" value="21.6.91.27:9090">
+  </div>
+  <!-- <div class="checkbox-container">
     <input type="checkbox" id="useServerCheckbox">
     <label for="useServerCheckbox">Use Collabora Whisper-Live Server</label>
-  </div>
+  </div> -->
   <div class="checkbox-container">
-    <input type="checkbox" id="useVadCheckbox">
+    <input type="checkbox" id="useVadCheckbox" checked>
     <label for="useVadCheckbox">Use Voice Activity Detection</label>
   </div>
   <div class="dropdown-container">
@@ -140,12 +144,12 @@
       <option value="tiny.en">Tiny (English-only)</option>
       <option value="base">Base</option>
       <option value="base.en">Base (English-only)</option>
-      <option value="small" selected>Small</option>
+      <option value="small">Small</option>
       <option value="small.en">Small (English-only)</option>
       <option value="medium">Medium</option>
       <option value="medium.en">Medium (English-only)</option>
       <option value="large-v2">Large-v2</option>
-      <option value="large-v3">Large-v3</option>
+      <option value="large-v3" selected>Large-v3</option>
     </select>
   </div>
 </body>

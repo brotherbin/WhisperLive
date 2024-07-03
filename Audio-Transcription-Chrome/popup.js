@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const startButton = document.getElementById("startCapture");
   const stopButton = document.getElementById("stopCapture");
 
-  const useServerCheckbox = document.getElementById("useServerCheckbox");
+  // const useServerCheckbox = document.getElementById("useServerCheckbox");
   const useVadCheckbox = document.getElementById("useVadCheckbox");
   const languageDropdown = document.getElementById('languageDropdown');
   const taskDropdown = document.getElementById('taskDropdown');
@@ -26,11 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Retrieve checkbox state from storage on popup open
-  chrome.storage.local.get("useServerState", ({ useServerState }) => {
-    if (useServerState !== undefined) {
-      useServerCheckbox.checked = useServerState;
-    }
-  });
+  // chrome.storage.local.get("useServerState", ({ useServerState }) => {
+  //   if (useServerState !== undefined) {
+  //     useServerCheckbox.checked = useServerState;
+  //   }
+  // });
 
   chrome.storage.local.get("useVadState", ({ useVadState }) => {
     if (useVadState !== undefined) {
@@ -70,14 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentTab = await getCurrentTab();
 
     // Send a message to the background script to start capturing
-    let host = "localhost";
-    let port = "9090";
-    const useCollaboraServer = useServerCheckbox.checked;
-    if (useCollaboraServer){
-      host = "transcription.kurg.org"
-      port = "7090"
-    }
-
+    let addr = document.getElementById("backendServer").value
+    console.log("backend server: ", addr)
+    const host = addr.split(":")[0]
+    const port = addr.split(":")[1]
     chrome.runtime.sendMessage(
       { 
         action: "startCapture", 
@@ -126,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function toggleCaptureButtons(isCapturing) {
     startButton.disabled = isCapturing;
     stopButton.disabled = !isCapturing;
-    useServerCheckbox.disabled = isCapturing;
+    // useServerCheckbox.disabled = isCapturing;
     useVadCheckbox.disabled = isCapturing;
     modelSizeDropdown.disabled = isCapturing;
     languageDropdown.disabled = isCapturing;
@@ -136,10 +132,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Save the checkbox state when it's toggled
-  useServerCheckbox.addEventListener("change", () => {
-    const useServerState = useServerCheckbox.checked;
-    chrome.storage.local.set({ useServerState });
-  });
+  // useServerCheckbox.addEventListener("change", () => {
+  //   const useServerState = useServerCheckbox.checked;
+  //   chrome.storage.local.set({ useServerState });
+  // });
 
   useVadCheckbox.addEventListener("change", () => {
     const useVadState = useVadCheckbox.checked;
